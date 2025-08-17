@@ -14,10 +14,39 @@
   "contributes": {
     "commands": [
       {
-        "command": "c-cpp-quick-include.helloWorld",
-        "title": "Hello World"
+        "command": "c-cpp-quick-include.quickInclude",
+        "title": "Add",
+        "category": "C/C++ Quick Include"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "C/C++ Quick Include",
+      "properties": {
+        "c-cpp-quick-include.includesMarkers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Regex patterns to match header insertion markers in comments",
+          "editPresentation": "multiline"
+        },
+        "c-cpp-quick-include.defaultIncludeStyle": {
+          "type": "string",
+          "enum": [
+            "quotes",
+            "angleBrackets"
+          ],
+          "enumDescriptions": [
+            "Use double quotes for #include (e.g. #include \"file.h\")",
+            "Use angle brackets for #include (e.g. #include <file.h>)"
+          ],
+          "default": "quotes",
+          "description": "Default style for #include statements"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -30,8 +59,7 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "lint": "eslint src"
   },
   "devDependencies": {
     "@types/vscode": "^1.103.0",

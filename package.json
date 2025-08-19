@@ -29,7 +29,7 @@
             "type": "string"
           },
           "default": [],
-          "description": "Regex patterns to match header insertion markers in comments",
+          "description": "%c-cpp-quick-include.includesMarkers.description%",
           "editPresentation": "multiline"
         },
         "c-cpp-quick-include.defaultIncludeStyle": {
@@ -39,11 +39,11 @@
             "angleBrackets"
           ],
           "enumDescriptions": [
-            "Use double quotes for #include (e.g. #include \"file.h\")",
-            "Use angle brackets for #include (e.g. #include <file.h>)"
+            "%c-cpp-quick-include.defaultIncludeStyle.quotes%",
+            "%c-cpp-quick-include.defaultIncludeStyle.angleBrackets%"
           ],
           "default": "quotes",
-          "description": "Default style for #include statements"
+          "description": "%c-cpp-quick-include.defaultIncludeStyle.description%"
         }
       }
     }

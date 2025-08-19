@@ -1,0 +1,7 @@
+{
+    "c-cpp-quick-include.includesMarkers.description": "头文件插入标记的正则表达式",
+    "c-cpp-quick-include.defaultIncludeStyle.description": "默认的 #include 样式",
+    "c-cpp-quick-include.defaultIncludeStyle.quotes": "使用双引号 (e.g. #include \"file.h\")",
+    "c-cpp-quick-include.defaultIncludeStyle.angleBrackets": "使用尖括号 (e.g. #include <file.h>)",
+    "c-cpp-quick-include.add.quickPick.placeholder": "请选择要插入的头文件"
+}

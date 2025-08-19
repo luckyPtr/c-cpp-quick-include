@@ -5,7 +5,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     let disposable = vscode.commands.registerCommand('c-cpp-quick-include.quickInclude', () => {
         selectHeaderFile().then(res => {
-            console.log(res);
             insertHeader(res, /INCLUDES/i);
         });
     });
@@ -30,7 +29,7 @@ export async function selectHeaderFile() {
 
     // 创建 QuickPick 实例
     const quickPick = vscode.window.createQuickPick();
-    quickPick.placeholder = '请选择要插入的头文件';
+    quickPick.placeholder = 'Select header file to include';
     quickPick.matchOnDescription = true;
     quickPick.items = pickItems;
     

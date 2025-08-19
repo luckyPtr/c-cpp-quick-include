@@ -1,0 +1,7 @@
+{
+    "c-cpp-quick-include.includesMarkers.description": "Regex patterns to match header insertion markers in comments",
+    "c-cpp-quick-include.defaultIncludeStyle.description": "Default style for #include statements",
+    "c-cpp-quick-include.defaultIncludeStyle.quotes": "Use double quotes for #include (e.g. #include \"file.h\")",
+    "c-cpp-quick-include.defaultIncludeStyle.angleBrackets": "Use angle brackets for #include (e.g. #include <file.h>)",
+    "c-cpp-quick-include.add.quickPick.placeholder": "Select header file to include"
+}

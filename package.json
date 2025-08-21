@@ -28,7 +28,7 @@
           "items": {
             "type": "string"
           },
-          "default": [],
+          "default": ["/INCLUDES/i"],
           "description": "%c-cpp-quick-include.includesMarkers.description%",
           "editPresentation": "multiline"
         },
@@ -36,11 +36,11 @@
           "type": "string",
           "enum": [
             "quotes",
-            "angleBrackets"
+            "angle-brackets"
           ],
           "enumDescriptions": [
             "%c-cpp-quick-include.defaultIncludeStyle.quotes%",
-            "%c-cpp-quick-include.defaultIncludeStyle.angleBrackets%"
+            "%c-cpp-quick-include.defaultIncludeStyle.angle-brackets%"
           ],
           "default": "quotes",
           "description": "%c-cpp-quick-include.defaultIncludeStyle.description%"

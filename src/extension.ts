@@ -1,11 +1,27 @@
 import path from 'path';
 import * as vscode from 'vscode';
+import * as nls from 'vscode-nls';
+
+const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 export function activate(context: vscode.ExtensionContext) {
 
-    let disposable = vscode.commands.registerCommand('c-cpp-quick-include.quickInclude', () => {
+let disposable = vscode.commands.registerCommand('c-cpp-quick-include.quickInclude', () => {
         selectHeaderFile().then(res => {
-            insertHeader(res, /INCLUDES/i);
+            const config = vscode.workspace.getConfiguration('c-cpp-quick-include');
+            const markers: string[] = config.get('includesMarkers', []);
+            const regexMarkers = markers.map(marker => {
+                // 如果是有效的正则表达式字符串（带有分隔符），则解析它
+                if (marker.startsWith('/') && marker.lastIndexOf('/') > 0) {
+                    const lastSlashIndex = marker.lastIndexOf('/');
+                    const pattern = marker.substring(1, lastSlashIndex);
+                    const flags = marker.substring(lastSlashIndex + 1);
+                    return new RegExp(pattern, flags);
+                } else {
+                    return new RegExp(marker);
+                }
+            });
+            insertHeader(res, regexMarkers);
         });
     });
 
@@ -29,7 +45,7 @@ export async function selectHeaderFile() {
 
     // 创建 QuickPick 实例
     const quickPick = vscode.window.createQuickPick();
-    quickPick.placeholder = 'Select header file to include';
+    quickPick.placeholder = localize('c-cpp-quick-include.add.quickPick.placeholder', 'Select header file to include');
     quickPick.matchOnDescription = true;
     quickPick.items = pickItems;
     
@@ -111,7 +127,7 @@ function getRelativePath(fullPath: string, keyword: string): string | undefined 
     return normalizedPath.substring(index);
 }
 
-export async function insertHeader(header: string | undefined, markerRe?: RegExp) {
+export async function insertHeader(header: string | undefined, markerRe?: RegExp[]) {
     const editor = vscode.window.activeTextEditor;
     if (!editor || !header) {
         return;
@@ -124,7 +140,7 @@ export async function insertHeader(header: string | undefined, markerRe?: RegExp
     let foundMarker = false;
 
     // 如果有头文件开始regex，则查找匹配的行
-    if (markerRe) {
+    if (markerRe && markerRe.length > 0) {
         let inBlockComment = false;
         for (let l = 0; l < document.lineCount; l++) {
             const text = document.lineAt(l).text;
@@ -137,7 +153,9 @@ export async function insertHeader(header: string | undefined, markerRe?: RegExp
                     break;
                 }
             }
-            if (markerRe.test(text)) {
+
+            const isMatch = markerRe.some(re => re.test(text));
+            if (isMatch) {
                 foundMarker = true;
                 if (!inBlockComment) {
                     i = l + 1;

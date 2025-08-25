@@ -1,11 +1,12 @@
 {
   "name": "c-cpp-quick-include",
   "displayName": "C/C++ Quick Include",
-  "description": "",
+  "description": "Quickly insert #include headers into your C/C++ files.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.103.0"
   },
+  "icon": "resources/icon.png",
   "categories": [
     "Other"
   ],
@@ -16,7 +17,8 @@
       {
         "command": "c-cpp-quick-include.quickInclude",
         "title": "Add",
-        "category": "C/C++ Quick Include"
+        "category": "C/C++ Quick Include",
+        "description": "%c-cpp-quick-include.quickInclude.description%"
       }
     ],
     "configuration": {

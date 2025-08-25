@@ -53,8 +53,6 @@ export async function selectHeaderFile() {
 
     const allFiles = [...files, ...additionalFiles];
 
-    console.log('All files:', allFiles);
-
     const pickItems: vscode.QuickPickItem[] = allFiles.map(file => {
         const fileName = vscode.workspace.asRelativePath(file);
         return {

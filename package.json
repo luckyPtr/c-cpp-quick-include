@@ -44,6 +44,14 @@
           ],
           "default": "quotes",
           "description": "%c-cpp-quick-include.defaultIncludeStyle.description%"
+        },
+        "c-cpp-quick-include.headerSearchPaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "%c-cpp-quick-include.headerSearchPaths.description%"
         }
       }
     }

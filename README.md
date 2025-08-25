@@ -1,71 +1,46 @@
-# c-cpp-quick-include README
+# C/C++ Quick Include
 
-This is the README for your extension "c-cpp-quick-include". After writing up a brief description, we recommend including the following sections.
+一个帮助你在C/C++项目中快速添加#include语句的VS Code扩展。
 
-## Features
+## 功能
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- 快速搜索并插入头文件包含语句
+- 智能识别项目中的所有头文件（.h, .hpp, .hh, .hxx）
+- 支持自定义输入头文件名
+- 自动将#include语句插入到合适的位置
+- 可配置默认包含样式（双引号或尖括号）
+- 可配置标记位置，用于指定插入点
 
-For example if there is an image subfolder under your extension project workspace:
+## 使用方法
 
-\!\[feature X\]\(images/feature-x.png\)
+1. 在C/C++文件中按下 `Ctrl+Shift+P` (Windows/Linux) 或 `Cmd+Shift+P` (macOS) 打开命令面板
+2. 输入 **C/C++ Quick Include: Add**
+3. 从列表中选择一个头文件，或输入自定义头文件名
+4. 插件会自动在合适的位置插入#include语句而不用离开当前的编辑位置
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## 扩展设置
 
-## Requirements
+本扩展提供以下设置选项：
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* `c-cpp-quick-include.includesMarkers`：用于标记头文件插入位置的正则表达式列表。默认值为 `["/INCLUDES/i"]`。扩展会在匹配这些正则表达式的注释下方插入#include语句。
+  
+  示例配置：
+  ```json
+  {
+    "c-cpp-quick-include.includesMarkers": [
+      "/INCLUDES/i",
+      "/HEADERS/i"
+    ]
+  }
+  ```
+* `c-cpp-quick-include.defaultIncludeStyle`：默认的#include语句样式。
+    - `quotes`：使用双引号（默认），例如 #include "file.h"
+    - `angle-brackets`：使用尖括号，例如 #include <file.h>
 
-## Extension Settings
+## 工作原理
+扩展会自动扫描工作区中的所有头文件，并在Quick Pick列表中展示。用户可以选择现有文件或输入自定义文件名。
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+#include语句的插入位置遵循以下规则：
+1. 如果配置了标记正则表达式，会在第一个匹配的注释下方插入
+2. 否则，会在文件开头的注释块之后插入
+3. 如果已有#include语句，则在最后一个#include语句后插入

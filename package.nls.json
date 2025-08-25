@@ -3,5 +3,6 @@
     "c-cpp-quick-include.defaultIncludeStyle.description": "Default style for #include statements",
     "c-cpp-quick-include.defaultIncludeStyle.quotes": "Use double quotes for #include (e.g. #include \"file.h\")",
     "c-cpp-quick-include.defaultIncludeStyle.angle-brackets": "Use angle brackets for #include (e.g. #include <file.h>)",
-    "c-cpp-quick-include.add.quickPick.placeholder": "Select header file to include"
+    "c-cpp-quick-include.add.quickPick.placeholder": "Select header file to include",
+    "c-cpp-quick-include.headerSearchPaths.description": "Header search paths"
 }

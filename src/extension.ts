@@ -34,8 +34,28 @@ export function deactivate() {}
 export async function selectHeaderFile() {
     // 在工作区中查找所有头文件
     const files = await vscode.workspace.findFiles('**/*.{h,hpp,hh,hxx}');
+    
+    // 获取配置的额外头文件搜索路径
+    const config = vscode.workspace.getConfiguration('c-cpp-quick-include');
+    const headerSearchPaths: string[] = config.get('headerSearchPaths', []);
+    const additionalFiles: vscode.Uri[] = [];
+    for (const searchPath of headerSearchPaths) {
+        try {
+            const resolvedPath = searchPath.replace('${workspaceFolder}', vscode.workspace.rootPath || '');
+            const pathFiles = await vscode.workspace.findFiles(
+                new vscode.RelativePattern(resolvedPath, '**/*.{h,hpp,hh,hxx}')
+            );
+            additionalFiles.push(...pathFiles);
+        } catch (e) {
+            console.error('Error searching path:', searchPath, e);
+        }
+    }
 
-    const pickItems: vscode.QuickPickItem[] = files.map(file => {
+    const allFiles = [...files, ...additionalFiles];
+
+    console.log('All files:', allFiles);
+
+    const pickItems: vscode.QuickPickItem[] = allFiles.map(file => {
         const fileName = vscode.workspace.asRelativePath(file);
         return {
             label: path.basename(fileName),
@@ -78,8 +98,8 @@ export async function selectHeaderFile() {
             
             if (selection) {
                 // 这是选择的现有文件，根据输入内容判断返回相对路径还是文件名
-                const matchedFile = files.find(file => {
-                    const fileName = path.basename(file.path);
+                const matchedFile = allFiles.find(allFiles => {
+                    const fileName = path.basename(allFiles.path);
                     return fileName === selection.label;
                 });
 

@@ -1,6 +1,6 @@
 # C/C++ Quick Include
 
-一个帮助你在C/C++项目中快速添加#include语句的VS Code扩展。
+一个帮助你在C/C++项目中快速添加#include语句的VS Code 扩展。
 
 ## 功能
 
@@ -10,6 +10,7 @@
 - 自动将#include语句插入到合适的位置
 - 可配置默认包含样式（双引号或尖括号）
 - 可配置标记位置，用于指定插入点
+- 支持自定义头文件搜索路径
 
 ## 使用方法
 
@@ -33,6 +34,17 @@
     ]
   }
   ```
+
+* `c-cpp-quick-include.searchPaths`：自定义头文件搜索路径。拓展会在这些路径中搜索头文件。
+  配置示例：
+  ```json
+  {
+    "c-cpp-quick-include.searchPaths": [
+      "c:/path/to/headers",
+    ]
+  }
+  ```
+
 * `c-cpp-quick-include.defaultIncludeStyle`：默认的#include语句样式。
     - `quotes`：使用双引号（默认），例如 #include "file.h"
     - `angle-brackets`：使用尖括号，例如 #include <file.h>

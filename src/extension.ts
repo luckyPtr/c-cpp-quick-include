@@ -165,17 +165,17 @@ export async function insertHeader(header: string | undefined, markerRe?: RegExp
             if (text.trim().startsWith('/*')) {
                 inBlockComment = true;
             }
-            else if (text.trim().includes('*/')) {
-                if (foundMarker) {
-                    i = l + 1;
-                    break;
-                }
-            }
 
             const isMatch = markerRe.some(re => re.test(text));
             if (isMatch) {
                 foundMarker = true;
                 if (!inBlockComment) {
+                    i = l + 1;
+                    break;
+                }
+            }
+            if (text.trim().includes('*/')) {
+                if (foundMarker) {
                     i = l + 1;
                     break;
                 }

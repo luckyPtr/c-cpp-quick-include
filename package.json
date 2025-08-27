@@ -1,8 +1,12 @@
 {
   "name": "c-cpp-quick-include",
   "displayName": "C/C++ Quick Include",
-  "description": "Quickly insert #include headers into your C/C++ files.",
+  "description": "Quickly insert #include statements in your C/C++ files without leaving the editor.",
   "version": "0.0.1",
+  "author": {
+    "name": "luckyPtr",
+    "url": "https://github.com/luckyPtr"
+  },
   "engines": {
     "vscode": "^1.103.0"
   },
